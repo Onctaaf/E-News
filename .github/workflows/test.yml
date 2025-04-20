@@ -35,7 +35,7 @@ jobs:
 
       # Run tests with coverage
       - name: Run tests
-        run: npm test -- --coverage
+        run: npm test -- --coverage --forceExit
 
       # Upload coverage report (optional)
       # - name: Upload coverage report

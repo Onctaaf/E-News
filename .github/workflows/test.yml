@@ -31,7 +31,9 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm test
+        run: |
+          npm test -- --coverage
+          echo "Tests completed"
 
       - name: Generate coverage report
         run: npm run coverage

@@ -20,11 +20,12 @@ jobs:
           node-version: '20'
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
+          restore-keys: |
+            npm-
 
       - name: Install dependencies
         run: npm install

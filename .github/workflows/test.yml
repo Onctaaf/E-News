@@ -32,7 +32,7 @@ jobs:
 
       - name: Run tests
         run: |
-          npm test -- --coverage
+          npm test -- --coverage --detectOpenHandles
           echo "Tests completed"
 
       - name: Generate coverage report

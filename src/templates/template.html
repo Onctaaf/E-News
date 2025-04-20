@@ -1,0 +1,124 @@
+<!-- src/templates/template.html -->
+<html lang="en">
+    <head>
+        <title>News</title>
+        {{css}}
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div class="title-container">
+                    <h1 class="KrantTitel">E-News</h1>
+                </div>
+                <div class="hor-divider"></div>
+                <div class="header-info-container">
+                    <p class="header-info vol">vol {{volumeNumber}}</p>
+                    <p class="header-info weather">Leiden   {{weatherData}}</p>
+                    <p class="header-info price">€3,50</p>
+                </div>
+<!--                <div class="hor-divider"></div>-->
+            </header>
+
+            <div class="mainStoryLayout">
+                <div class="left-column" id="leftColumn">
+                    <h2 id="mainTitle" class="main-article-title">{{mainStoryTitle}}</h2>
+                    <div id="mainContentLeft">
+                        <p>
+                            {{leftContent}}
+                        </p>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <img id="articleImage" src="{{mainImage}}" alt="test">
+                    <!--            <p class="imageSubText">{{imageSubText}}</p>-->
+                    <div id="mainContentRight">
+                        <p>
+                            {{rightContent}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subStoryLayout">
+                <div class="subStoryVert">
+
+                    <img class="subArticleImage" src="{{subStory1Image}}" alt="test">
+                    <h2 class="sub-article-title">{{subStory1Title}}</h2>
+                    <div class="subContentVert">
+                            {{subContent1}}
+                    </div>
+                </div>
+                <div class="subStoryVert">
+                    <img class="subArticleImage" src="{{subStory2Image}}" alt="test">
+                    <h2 class="sub-article-title">{{subStory2Title}}</h2>
+                    <div class="subContentVert">
+                            {{subContent2}}
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p class="footer-text">{{currentDate}}</p>
+                        <p class="footer-text">Leiden</p>
+                        <p class="footer-text">E-News &copy; 2023</p>
+                        <p class="footer-text">All rights reserved</p>
+                    </div>
+                    <div class="footer-right">
+                        {{qrMain}}
+                        {{qrSub1}}
+                        {{qrSub2}}
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+
+    <script>
+        function balanceColumns(fullText) {
+            const contentLeft = document.getElementById("contentLeft");
+            const contentRight = document.getElementById("contentRight");
+            const leftColumn = document.querySelector(".left-column");
+            const rightColumn = document.querySelector(".right-column");
+
+            contentLeft.innerHTML = '';
+            contentRight.innerHTML = '';
+
+            const words = fullText.split(' ');
+
+            const tempDiv = document.createElement("div");
+            tempDiv.style.position = "absolute";
+            tempDiv.style.visibility = "hidden";
+            tempDiv.style.width = leftColumn.offsetWidth + "px";
+            tempDiv.style.font = window.getComputedStyle(contentLeft).font;
+            document.body.appendChild(tempDiv);
+
+            const maxLeftHeight = rightColumn.offsetHeight;
+            let i = 0;
+            let chunk = "";
+
+            while (i < words.length) {
+                chunk += words[i] + ' ';
+                tempDiv.innerText = chunk;
+                if (tempDiv.offsetHeight > maxLeftHeight - 20) break;
+                i++;
+            }
+
+            contentLeft.innerText = chunk;
+            contentRight.innerText = words.slice(i).join(' ');
+            document.body.removeChild(tempDiv);
+        }
+
+        window.addEventListener("load", () => {
+            const content = `{{mainStory-content}}`;
+            const img = document.getElementById("articleImage");
+
+            if (img.complete) {
+                balanceColumns(content);
+            } else {
+                img.onload = () => balanceColumns(content);
+            }
+        });
+    </script>
+
+</html>

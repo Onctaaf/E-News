@@ -30,8 +30,8 @@ jobs:
         run: npm test -- --coverage
 
       # Upload coverage report (optional)
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: coverage/
+      # - name: Upload coverage report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: coverage-report
+      #     path: coverage/

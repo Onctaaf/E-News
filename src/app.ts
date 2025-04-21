@@ -36,7 +36,7 @@ app.get('/', async (req, res) => {
         res.send(html); // Send the generated HTML to the browser
     } catch (error) {
         console.error('Error processing RSS feed:', error);
-        res.status(500).send('An error occurred while generating the page.');
+        res.status(500).send('An error occurred while generating the page');
     }
 });
 

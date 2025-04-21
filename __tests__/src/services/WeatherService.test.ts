@@ -2,16 +2,23 @@ import { WeatherService } from '@services/WeatherService';
 import { fetchWeatherApi } from 'openmeteo';
 
 // Mock the `fetchWeatherApi` function
-jest.mock('openmeteo', () => ({
-    fetchWeatherApi: jest.fn(),
-}));
+jest.mock('openmeteo', () => {
+    return {
+        __esModule: true,
+        fetchWeatherApi: jest.fn(),
+    };
+});
 
 describe('WeatherService', () => {
+
+
+
     let weatherService: WeatherService;
 
     beforeEach(() => {
         weatherService = new WeatherService();
         (WeatherService as any).currentWeather = undefined; // Reset the static property
+        jest.clearAllMocks(); // Clear mock state before each test
     });
 
     it('should fetch and process weather data correctly', async () => {
@@ -53,5 +60,9 @@ describe('WeatherService', () => {
         (fetchWeatherApi as jest.Mock).mockRejectedValue(new Error('API error'));
 
         await expect(weatherService.getCurrentWeather()).rejects.toThrow('API error');
+    });
+
+    afterAll(() => {
+        jest.clearAllMocks();
     });
 });

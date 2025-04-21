@@ -6,7 +6,8 @@
     "start": "node dist/app.js",
     "dev": "nodemon --exec ts-node src/app.ts",
     "coverage": "jest --coverage",
-    "test": "jest --watchAll --detectOpenHandles --forceExit"
+    "test": "jest --detectOpenHandles --forceExit",
+    "testci": "jest --coverage --detectOpenHandles"
   },
   "keywords": [],
   "author": "",

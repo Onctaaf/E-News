@@ -7,7 +7,7 @@
     "dev": "nodemon --exec ts-node src/app.ts",
     "coverage": "jest --coverage",
     "test": "jest --detectOpenHandles --forceExit",
-    "test:ci": "jest --coverage --detectOpenHandles"
+    "testci": "jest --coverage --detectOpenHandles"
   },
   "keywords": [],
   "author": "",

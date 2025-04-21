@@ -33,7 +33,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm test:ci
+        run: npm testci
 
       - name: Upload coverage report
         if: always()

@@ -15,16 +15,16 @@ export class HtmlService {
         const fullContent = items.mainStory.content;
 
         function cropAndSplitStory(content: string, wordLimit: number, columnDif: number): Array<string> {
-
-            const imageWeightEstimate = 150; // Approximate "height cost" of the image in words
+            console.log("content: ", content)
+            const imageWeightEstimate = 0; // Approximate "height cost" of the image in words
             const croppedContent = cropContentAtWordCount(content, wordLimit);
 
             // Simple word-based estimate: split at ~40% for left column (title + content)
             const words = croppedContent.split(' ');
             const totalWords = words.length;
 
-            const paragraphRegex = /<\/p>/g;
-            let paragraphs = croppedContent.split(paragraphRegex);
+            const paragraphRegex = /<p>.*?<\/p>/g;
+            let paragraphs = croppedContent.match(paragraphRegex) || [];
             let leftContent = '';
             let rightContent = '';
             let wordCount = 0;
@@ -32,8 +32,8 @@ export class HtmlService {
             const wordsForLeft = Math.floor((totalWords + imageWeightEstimate) * columnDif);
             // Split the content into two parts
 
-            for (let i = 0; i < paragraphs.length; i += 2) {
-                const paragraph = paragraphs[i] + (paragraphs[i + 1] || ''); // Combine paragraph and closing tag
+            for (let i = 0; i < paragraphs.length; i++) {
+                const paragraph = paragraphs[i];
                 const paragraphWords = paragraph.split(' ').length;
 
                 if (wordCount + paragraphWords > wordsForLeft) {
@@ -69,8 +69,8 @@ export class HtmlService {
             return croppedContent;
         }
 
-        const sub1CroppedContent = cropContentAtWordCount(items.subStories[0].content, 100);
-        const sub2CroppedContent = cropContentAtWordCount(items.subStories[1].content, 100);
+        const sub1CroppedContent = cropContentAtWordCount(items.subStories[0].content, 150);
+        const sub2CroppedContent = cropContentAtWordCount(items.subStories[1].content, 150);
 
         const columns = cropAndSplitStory(fullContent, 300, 0.53);
 

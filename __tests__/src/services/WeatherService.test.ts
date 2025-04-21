@@ -10,11 +10,15 @@ jest.mock('openmeteo', () => {
 });
 
 describe('WeatherService', () => {
+
+
+
     let weatherService: WeatherService;
 
     beforeEach(() => {
         weatherService = new WeatherService();
         (WeatherService as any).currentWeather = undefined; // Reset the static property
+        jest.clearAllMocks(); // Clear mock state before each test
     });
 
     it('should fetch and process weather data correctly', async () => {
@@ -60,9 +64,5 @@ describe('WeatherService', () => {
 
     afterAll(() => {
         jest.clearAllMocks();
-
-        // Optional aggressive cleanup
-        const https = require('https');
-        https.globalAgent.destroy();
     });
 });

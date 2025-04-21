@@ -2,9 +2,12 @@ import { WeatherService } from '@services/WeatherService';
 import { fetchWeatherApi } from 'openmeteo';
 
 // Mock the `fetchWeatherApi` function
-jest.mock('openmeteo', () => ({
-    fetchWeatherApi: jest.fn(),
-}));
+jest.mock('openmeteo', () => {
+    return {
+        __esModule: true,
+        fetchWeatherApi: jest.fn(),
+    };
+});
 
 describe('WeatherService', () => {
     let weatherService: WeatherService;
@@ -56,6 +59,10 @@ describe('WeatherService', () => {
     });
 
     afterAll(() => {
-        jest.clearAllMocks(); // Clear mocks to avoid interference between tests
+        jest.clearAllMocks();
+
+        // Optional aggressive cleanup
+        const https = require('https');
+        https.globalAgent.destroy();
     });
 });

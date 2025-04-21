@@ -1,6 +1,8 @@
 name: Unit tests
 run-name: unit tests running
-on: [push]
+
+on:
+  pull_request:
 
 jobs:
   unit-test:
@@ -31,9 +33,11 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: |
-          npm test -- --coverage --detectOpenHandles
-          echo "Tests completed"
+        run: npm test -- --coverage --detectOpenHandles
 
-      - name: Generate coverage report
-        run: npm run coverage
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/

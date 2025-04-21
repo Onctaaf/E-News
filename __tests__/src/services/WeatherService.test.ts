@@ -54,4 +54,8 @@ describe('WeatherService', () => {
 
         await expect(weatherService.getCurrentWeather()).rejects.toThrow('API error');
     });
+
+    afterAll(() => {
+        jest.clearAllMocks(); // Clear mocks to avoid interference between tests
+    });
 });

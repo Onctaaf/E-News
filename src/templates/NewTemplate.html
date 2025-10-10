@@ -1,0 +1,80 @@
+<!-- src/templates/template.html -->
+<html lang="en">
+
+<head>
+    <title>News</title>
+    {{css}}
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="title-container">
+                <h1 class="KrantTitel">E-News</h1>
+            </div>
+            <div class="hor-divider"></div>
+            <div class="header-info-container">
+                <p class="header-info vol">vol {{volumeNumber}}</p>
+                <p class="header-info weather">Leiden {{weatherData}}</p>
+                <p class="header-info price">€3,50</p>
+            </div>
+        </header>
+
+        <img id="articleImage" src="{{mainImage}}" alt="test">
+        <h1 id="mainTitle" class="main-article-title">{{mainStoryTitle}}</h1>
+        <!-- <div id="mainContent">
+                <p>
+                    {{MainContent}}
+                </p>
+            </div> -->
+
+        <div class="mainStoryLayout">
+            <div class="left-column" id="leftColumn">
+                <div id="mainContentLeft">
+                    <p>
+                        {{leftContent}}
+                    </p>
+                </div>
+            </div>
+            <div class="right-column">
+                <div id="mainContentRight">
+                    <p>
+                        {{rightContent}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="subStoryLayout">
+                <div class="subStoryVert">
+
+                    <img class="subArticleImage" src="{{subStory1Image}}" alt="test">
+                    <h2 class="sub-article-title">{{subStory1Title}}</h2>
+                </div>
+                <div class="subStoryVert">
+                    <img class="subArticleImage" src="{{subStory2Image}}" alt="test">
+                    <h2 class="sub-article-title">{{subStory2Title}}</h2>
+                </div>
+            </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p class="footer-text">{{currentDate}}</p>
+                    <p class="footer-text">Leiden</p>
+                    <p class="footer-text">E-News &copy; 2023</p>
+                    <p class="footer-text">All rights reserved</p>
+                </div>
+                <div class="footer-right">
+                    {{qrMain}}
+                    {{qrSub1}}
+                    {{qrSub2}}
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+<script>
+</script>
+
+</html>

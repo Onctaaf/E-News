@@ -19,6 +19,8 @@ const htmlService = new HtmlService();
 const itemPicker = new ItemPicker(storageService);
 const imageService = new ImageService();
 
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', async (req, res) => {
     try {
         const politiekItems: NewsItem[] = await rssService.fetchLatestItems('https://feeds.nos.nl/nosnieuwspolitiek', 'Politiek');
@@ -27,7 +29,7 @@ app.get('/', async (req, res) => {
         const algemeenItems: NewsItem[] = await rssService.fetchLatestItems('https://feeds.nos.nl/nosnieuwsalgemeen', 'Algemeen');
 
         const frontPage: FrontPage = await itemPicker.pickItems(politiekItems, formule1Items, schaatsenItems, algemeenItems);
-        const html = htmlService.generateHtml(frontPage);
+        const html = htmlService.generateNewHtml(frontPage);
 
         // Render the HTML to an image
         const outputPath = 'src/images/output.png';

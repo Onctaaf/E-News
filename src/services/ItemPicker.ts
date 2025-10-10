@@ -55,8 +55,8 @@ export class ItemPicker {
 
         if (mainStory) {
             //todo: uncomment this
-            // this.seenTitles.push(mainStory.title);
-            // this.storageService.writeSeenTitles(this.seenTitles);
+            this.seenTitles.push(mainStory.title);
+            this.storageService.writeSeenTitles(this.seenTitles);
         }
 
         return mainStory;

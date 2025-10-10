@@ -12,6 +12,11 @@ export class HtmlService {
 		let html = fs.readFileSync(templatePath, "utf8");
 		const css = fs.readFileSync(cssPath, "utf8");
 
+        // Remove <a href= tags but keep the text inside them
+        function stripLinks(html: string): string {
+            return html.replace(/<a [^>]*>(.*?)<\/a>/gi, "$1");
+        }
+
 		function cropAndSplitStory(
 			content: string,
 			wordLimit: number,
@@ -76,7 +81,9 @@ export class HtmlService {
 			return croppedContent;
 		}
 
-		const columns = cropAndSplitStory(items.mainStory.content, 150, 0.53);
+		// Strip links from the content before processing
+		const strippedMainContent = stripLinks(items.mainStory.content);
+		const columns = cropAndSplitStory(strippedMainContent, 150, 0.53);
 
 		html = html.replace("{{css}}", `<style>${css}</style>`);
 
